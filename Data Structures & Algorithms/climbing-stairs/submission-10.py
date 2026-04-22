@@ -1,19 +1,18 @@
 class Solution:
     def climbStairs(self, n: int) -> int:
-        if n <= 2:
-            return n
 
-        mem = {}
-        mem[1] = 1
-        mem[2] = 2
+        mem = {
+            0 : 0, 
+            1 : 1,
+            2 : 2
+        }
 
-        i = 3 
+        def helper(n : int) -> int:
+            if n in mem:
+                return mem[n]
 
-        while i <= n:
-            tmp = mem[2]
-            mem[2] = mem[2] + mem[1]
-            mem[1] = tmp
-            i += 1
+            mem[n] = helper(n-1) + helper(n-2)
+            return mem[n]
 
-        return mem[2]
+        return helper(n)
         
